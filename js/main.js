@@ -39,7 +39,6 @@ function escucharEventoAdd(){
     if (botonesAdd.length > 0) {
         botonesAdd.forEach((boton)=> {
             boton.addEventListener("click", ()=> {
-                console.log("Boton Detectado:)")
                 const productoSeleccionado = productos.find((producto)=> producto.id == boton.id)
                 carrito.push(productoSeleccionado)
                 localStorage.setItem("carrito", JSON.stringify(carrito))
