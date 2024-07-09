@@ -1,10 +1,18 @@
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? []
+const productos = []
+const URLproductos = "products.json"
 
 const containerCards = document.querySelector("#containerCards")
 const carritoCantidad = document.querySelector("#carritoNmr")
 const searchInput = document.querySelector("#barraDeBusqueda")
 
-
+function obtenerProductos(){
+    fetch(URLproductos)
+    .then((response) => response.json())
+    .then((data) => productos.push(...data))
+    .then(() => cargarProductos(productos))
+    .catch(() => containerCards.innerHTML = retornarCardError())
+}
 
 function cargarProductos(array) {
     if (array.length > 0) {
@@ -14,9 +22,7 @@ function cargarProductos(array) {
         })
         escucharEventoAdd()
         carrito.length > 0 && incrementarCarrito()
-    } else {
-        containerCards.innerHTML = retornarCardError()
-    }
+    } 
 }
 
 function retornarCardHTML(producto) {
@@ -41,8 +47,25 @@ function escucharEventoAdd(){
             boton.addEventListener("click", ()=> {
                 const productoSeleccionado = productos.find((producto)=> producto.id == boton.id)
                 carrito.push(productoSeleccionado)
+                const productoModelo = JSON.stringify(productoSeleccionado.modelo)
                 localStorage.setItem("carrito", JSON.stringify(carrito))
                 incrementarCarrito()
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "success",
+                    iconColor: "#009879",
+                    title: `${productoModelo} añadidas al carrito`
+                  });
             })
         })
     }
@@ -51,8 +74,7 @@ function escucharEventoAdd(){
 function incrementarCarrito(){
     carritoCantidad.textContent = carrito.length
 }
-
-cargarProductos(productos)
+obtenerProductos()
 console.log("hola")
 
 searchInput.addEventListener("keyup", (e)=> { // 

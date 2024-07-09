@@ -6,14 +6,14 @@
     <title>Footloose Co.</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/e1590b4fdf.js" crossorigin="anonymous"></script>
-    <script src="../js/products.js"></script>
-    <script defer src="../js/carrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="./js/carrito.js"></script>
 </head>
 <body>
     <div class="containerCarrito">
         <header class="containerHeader">
             <div>
-                <a href="../index.html" class="aHeader">FootLoose</a>
+                <a href="./index.html" class="aHeader">FootLoose</a>
             </div>
             <nav>
                 <p class="iconoHeader aHeader" id="carritoNmr">0</p>
@@ -23,7 +23,7 @@
         </header>
     <main>
         <div class="containerCrrtTexto">
-            <h1>FootLoose Co.</h1>
+            <h1 class="tittleCarrito">FootLoose Co.</h1>
             <h2>Bienvenido a tu carrito de comprar!</h2>
             <p>Vamos a verificar tus productos antes de continuar con la confirmación de pago</p>
         </div>
@@ -47,6 +47,10 @@
                     </tr>
                 </tfoot>
             </table>
+            <div class="containerBttns">
+                <button id="bttnComprar" class="bttnsCarrito">COMPRAR</button>
+                <button id="bttnCancelar" class="bttnsCarrito bttnCancelar">BORRAR CARRITO</button>
+            </div>
         </div>
     </main>
     </div>
